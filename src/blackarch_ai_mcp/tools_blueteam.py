@@ -134,6 +134,36 @@ def audit_pacman_packages() -> ToolResult:
     )
 
 
+def list_installed_tools() -> ToolResult:
+    """Inventory of installed BlackArch security-tool packages, grouped by BlackArch category."""
+    groups = run_tool(["pacman", "-Sg"], timeout=60)
+    blackarch_groups = sorted(
+        line.split()[0]
+        for line in groups.stdout.splitlines()
+        if line.split() and line.split()[0].startswith("blackarch-")
+    )
+
+    installed = set(run_tool(["pacman", "-Qq"], timeout=60).stdout.split())
+
+    lines: list[str] = []
+    for group in blackarch_groups:
+        members = run_tool(["pacman", "-Sg", group], timeout=60)
+        pkgs = [line.split()[1] for line in members.stdout.splitlines() if len(line.split()) == 2]
+        installed_pkgs = sorted(p for p in pkgs if p in installed)
+        if installed_pkgs:
+            lines.append(f"{group} ({len(installed_pkgs)} installed): {', '.join(installed_pkgs)}")
+
+    stdout = "\n".join(lines) if lines else "(no blackarch-* package groups found)"
+    return ToolResult(
+        args=["pacman", "-Sg", "<blackarch-*>"],
+        returncode=0,
+        stdout=stdout,
+        stderr="",
+        timed_out=False,
+        truncated=False,
+    )
+
+
 def crack_hash_offline(hash_file: str, hash_mode: str, wordlist: str, tool: str = "hashcat") -> ToolResult:
     if tool not in ("hashcat", "john"):
         raise ValueError("tool must be 'hashcat' or 'john'")

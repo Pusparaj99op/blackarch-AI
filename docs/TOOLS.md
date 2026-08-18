@@ -19,6 +19,7 @@
 | `review_auth_log` | `journalctl -u sshd` (or `/var/log/auth.log`) | `since` (default `"24 hours ago"`) | |
 | `lint_ssh_config` | pure Python file read | `path` (default `/etc/ssh/sshd_config`) | checks against a baseline hardening ruleset |
 | `audit_pacman_packages` | `pacman -Qtdq` / `-Qu` / `-Qk` | — | read-only queries only, never `-S`/`-R` |
+| `list_installed_tools` | `pacman -Sg` / `-Qq` | — | inventories installed BlackArch security-tool packages by category |
 | `crack_hash_offline` | `hashcat` or `john` | `hash_file` (must resolve under `data/hashes/`), `hash_mode`, `wordlist`, `tool` | operates on a user-supplied offline file, not a live target |
 
 ## Phase 2 (not yet implemented)

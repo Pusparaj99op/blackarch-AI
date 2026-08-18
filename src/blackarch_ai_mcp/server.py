@@ -114,6 +114,12 @@ def lint_ssh_config(path: str = "/etc/ssh/sshd_config") -> str:
 
 
 @app.tool()
+def list_installed_tools() -> str:
+    """Inventory installed BlackArch security-tool packages, grouped by category (recon, exploitation, cracking, etc.)."""
+    return _guarded(tools_blueteam.list_installed_tools)()
+
+
+@app.tool()
 def audit_pacman_packages() -> str:
     """Report orphan packages, available updates, and package integrity via pacman (read-only) on this local host."""
     return _guarded(tools_blueteam.audit_pacman_packages)()
