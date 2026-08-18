@@ -1,0 +1,19 @@
+# Copy this file to scope.yaml (gitignored, never committed) and add
+# targets you have explicit written authorization to test.
+#
+# Every red-team MCP tool (nmap_scan, gobuster_dir, nikto_scan,
+# hydra_bruteforce) refuses to run against anything not listed here.
+#
+# Do not add a target without real authorization on file — this is a
+# safety mechanism, not a formality.
+
+version: 1
+targets: []
+
+# Example entry (do not scan without written authorization):
+# targets:
+#   - host: 192.168.56.10        # exact IP/hostname, OR use cidr below
+#     cidr: null                 # e.g. "192.168.56.0/24"
+#     authorized_by: "Jane Doe, CISO of Example Corp"
+#     authorization_ref: "pentest-agreement-2026-01.pdf"
+#     expires: "2026-12-31"      # YYYY-MM-DD; entry stops working after this date

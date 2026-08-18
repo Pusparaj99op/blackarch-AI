@@ -1,0 +1,25 @@
+[project]
+name = "blackarch-ai-mcp"
+version = "0.1.0"
+description = "Scope-gated MCP server and Claude Code skills for red/blue-team security workflows on BlackArch Linux"
+readme = "README.md"
+authors = [
+    { name = "Pranay", email = "india@dhangoda.com" }
+]
+requires-python = ">=3.13"
+dependencies = [
+    "mcp[cli]>=2.0.0",
+    "pyyaml>=6.0.3",
+]
+
+[project.scripts]
+blackarch-ai-mcp = "blackarch_ai_mcp:main"
+
+[build-system]
+requires = ["uv_build>=0.12.5,<0.13.0"]
+build-backend = "uv_build"
+
+[dependency-groups]
+dev = [
+    "pytest>=9.1.1",
+]

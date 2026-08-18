@@ -1,0 +1,19 @@
+# Python-generated files
+__pycache__/
+*.py[oc]
+build/
+dist/
+wheels/
+*.egg-info
+
+# Virtual environments
+.venv
+
+# Project-specific: never publish live scope, scan output, or hash material
+scope.yaml
+data/hashes/*
+!data/hashes/.gitkeep
+reports/
+*.pcap
+.env
+
